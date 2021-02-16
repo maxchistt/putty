@@ -1,0 +1,8 @@
+#result{
+    background-color: #eeeeee;
+    word-wrap: break-word;
+}
+#result span{
+    display: block;
+    padding-left: 0.5em;
+}

@@ -24,8 +24,6 @@ cd && cd ${data.gitapp} && npm install && cd <br>
 
 <br>
 <p class="font-weight-bold">На случай если у нас node.js</p>
-<br>
-
 редактируем файлы конфигурации <br>
 sudo nano /home/std/ecosystem.config.js <br><br>
 <span>
@@ -58,7 +56,7 @@ pm2 save <br>
 
 <br>
 <p class="font-weight-bold">На случай если у нас только React</p>
-<br>
+
 cd && cd ${data.gitapp} && npm run build
 <br>
   cd && pm2 serve ${data.gitapp}/build 3000 --name "${data.app}" --spa && cd
@@ -66,9 +64,9 @@ cd && cd ${data.gitapp} && npm run build
 pm2 save 
 <br><br>
 pm2 list
-<br>
+<br><br>
 
-<p class="font-weight-bold">далее</p>
+<p class="font-weight-bold">Далее</p>
 
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 

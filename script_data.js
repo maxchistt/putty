@@ -55,13 +55,15 @@ pm2 save <br>
 На случай если у нас React
 <br>
 cd && cd ${data.gitapp} && npm run build
-<br><br>
-cd && cd ${data.gitapp} && pm2 serve build 3000 --spa && cd
 <br>
-или
+<span>
+  cd && cd ${data.gitapp} && pm2 serve build 3000 --spa && cd
+  <br>
+  или
+  <br>
+  cd && pm2 start ${data.gitapp}/node_modules/react-scripts/scripts/start.js --name "${data.app}"
+</span>
 <br>
-pm2 start ${data.gitapp}/node_modules/react-scripts/scripts/start.js --name "${data.app}"
-<br><br>
 pm2 save 
 <br><br>
 pm2 list

@@ -21,6 +21,11 @@ cd && mkdir -p /home/std/${data.gitapp} <br>
 cd && git clone git@github.com:${data.gituser}/${data.gitapp}.git && cd <br>
 нужно обратить внимание, успешно ли скопировались данные с гита<br>
 cd && cd ${data.gitapp} && npm install && cd <br>
+
+<br>
+<p class="font-weight-bold">На случай если у нас node.js</p>
+<br>
+
 редактируем файлы конфигурации <br>
 sudo nano /home/std/ecosystem.config.js <br><br>
 <span>
@@ -52,17 +57,11 @@ cd && pm2 restart ecosystem.config.js <br>
 pm2 save <br>
 
 <br>
-На случай если у нас React
+<p class="font-weight-bold">На случай если у нас только React</p>
 <br>
 cd && cd ${data.gitapp} && npm run build
 <br>
-<span>
-  cd && cd ${data.gitapp} && pm2 serve build 3000 --spa && cd
-  <br>
-  или
-  <br>
-  cd && pm2 start ${data.gitapp}/node_modules/react-scripts/scripts/start.js --name "${data.app}"
-</span>
+  cd && pm2 serve ${data.gitapp}/build 3000 --name "${data.app}" --spa && cd
 <br>
 pm2 save 
 <br><br>

@@ -26,14 +26,14 @@ sudo nano /home/std/ecosystem.config.js <br><br>
 <span>
 'env'- переменные окуружения<br>
 значение PORT указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
-вместо start.js свой исполняемый файл<br><br>
+вместо index.js свой исполняемый файл<br><br>
 module.exports = {<br>
   <span>
   apps : [<br><span>
     ...<br>
     {<br><span>
       'name':'${data.app}',<br>
-      'script': './${data.gitapp}/start.js',<br>
+      'script': './${data.gitapp}/index.js',<br>
       'watch': 'true',<br>
       'ignore-watch':"./${data.gitapp}/node_modules",<br>
       'ignore-watch':"node_modules",<br>
@@ -50,6 +50,22 @@ module.exports = {<br>
 </span>
 cd && pm2 restart ecosystem.config.js <br>
 pm2 save <br>
+
+<br>
+На случай если у нас React
+<br>
+cd && cd ${data.gitapp} && npm run build
+<br><br>
+cd && cd ${data.gitapp} && pm2 serve build 3000 --spa && cd
+<br>
+или
+<br>
+pm2 start ${data.gitapp}/node_modules/react-scripts/scripts/start.js --name "${data.app}"
+<br><br>
+pm2 save 
+<br><br>
+pm2 list
+<br>
 
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 
@@ -96,7 +112,8 @@ let fit_set_server = ()=>`
 приложение будет доступно по ссылке ${data.app}.std-1033.ist.mospolytech.ru<br><br>
 `;
 
-var firstinstall = () => `<h5>Подготовка сервера к запуску приложений на node.js</h5>
+var firstinstall = () => `
+<h5>Подготовка сервера к запуску приложений на node.js</h5>
 <br>
 cd && sudo apt update -y && sudo apt upgrade -y <br>
 sudo apt install <br>
@@ -105,7 +122,9 @@ sudo apt install nodejs <br>
 sudo apt install build-essential <br>
 sudo apt install git <br><br>
 
+cd && sudo npm install serve@latest -g <br>
 cd && sudo npm install pm2@latest -g <br>
+
 pm2 startup systemd <br>нужно выполнить строку из ответа на последнюю команду:<br>
 sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u std --hp /home/std <br>
 pm2 save <br>
@@ -114,11 +133,13 @@ cd && pm2 ecosystem <br><br>
 ${Number($("#set-nginxmode").val()) == 0 ? "" : nginx_start()}
 `;
 
-let nginx_start = ()=>`cd && sudo apt install nginx <br>
+let nginx_start = ()=>`
+cd && sudo apt install nginx <br>
 mkdir -p /etc/nginx/sites-available && mkdir -p /etc/nginx/sites-enabled <br>
 sudo nano /etc/nginx/sites-available/default <br> сохраняем нажав ctrl+O затем enter <br>
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/<br>
 sudo nano /etc/nginx/nginx.conf <br> в конец блока http дописываем include /etc/nginx/sites-enabled/default;<br>
 если нету, записываем server_names_hash_bucket_size 128;<br>
 sudo nginx -t<br>
-sudo sv restart nginx<br><br>`;
+sudo sv restart nginx<br><br>
+`;

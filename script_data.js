@@ -68,10 +68,16 @@ pm2 save
 pm2 list
 <br>
 
+<p class="font-weight-bold">далее</p>
+
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 
 команда для обновления с гитхаба<br>
-cd && cd ${data.gitapp} && git pull && cd<br><br>
+для node.js<br>
+cd && cd ${data.gitapp} && git pull && cd<br>
+для react<br>
+cd && cd ${data.gitapp} && git pull && cd && cd test-react-cards && npm run build && cd && pm2 restart ${data.app}<br>
+<br>
 `;
 
 let nginx_set_server = ()=>`

@@ -17,15 +17,15 @@ function generate() {
 var appinstall = () => `<h5>Развертывание сервера на Express с загрузкой с github</h5>
 <br>
 на сервере не должно быть непустой папки и существующего домена с таким названием<br><br>
-cd && mkdir -p /home/std/${data.app} <br>
+cd && mkdir -p /home/std/${data.gitapp} <br>
 cd && git clone git@github.com:${data.gituser}/${data.gitapp}.git && cd <br>
 нужно обратить внимание, успешно ли скопировались данные с гита<br>
-cd && cd ${data.app} && npm install && cd <br>
+cd && cd ${data.gitapp} && npm install && cd <br>
 редактируем файлы конфигурации <br>
 sudo nano /home/std/ecosystem.config.js <br><br>
 <span>
 'env'- переменные окуружения<br>
-значение PORT указываем 3001 и т.д., если приложений уже несколько<br>
+значение PORT указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
 вместо start.js свой исполняемый файл<br><br>
 module.exports = {<br>
   <span>
@@ -33,9 +33,9 @@ module.exports = {<br>
     ...<br>
     {<br><span>
       'name':'${data.app}',<br>
-      'script': './${data.app}/start.js',<br>
+      'script': './${data.gitapp}/start.js',<br>
       'watch': 'true',<br>
-      'ignore-watch':"./${data.app}/node_modules",<br>
+      'ignore-watch':"./${data.gitapp}/node_modules",<br>
       'ignore-watch':"node_modules",<br>
       'max-memory-restart':'150MB',<br>
       'env':{<br><span>
@@ -50,6 +50,15 @@ module.exports = {<br>
 </span>
 cd && pm2 restart ecosystem.config.js <br>
 pm2 save <br>
+
+${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
+
+команда для обновления с гитхаба<br>
+cd && cd ${data.gitapp} && git pull && cd<br><br>
+`;
+
+let nginx_set_server = ()=>`
+<br>
 sudo nano /etc/nginx/sites-available/default <br><br>
 <span>
 тут важно исправить std-1033 на номер для своего сервера<br>
@@ -71,11 +80,20 @@ server {<br>
 }<br>
 ...<br><br>
 </span>
-sudo sv restart nginx <br>
+sudo sv restart nginx <br><br>
 приложение будет доступно по ссылке ${data.app}.std-1033.ist.mospolytech.ru<br><br>
+`;
 
-команда для обновления с гитхаба<br>
-cd && cd ${data.app} && git pull && cd<br><br>
+let fit_set_server = ()=>`
+<br>
+заходим на https://fit.mospolytech.ru/systems/servers <br>
+<span>
+в качестве домена указываем ${data.app} ... <br>
+в качестве папки приложения на сервере указываем .../ ${data.gitapp}<br>
+указываем порт, указанный в предыдущем файле<br>
+</span>
+<br>
+приложение будет доступно по ссылке ${data.app}.std-1033.ist.mospolytech.ru<br><br>
 `;
 
 var firstinstall = () => `<h5>Подготовка сервера к запуску приложений на node.js</h5>
@@ -93,12 +111,14 @@ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -
 pm2 save <br>
 cd && pm2 ecosystem <br><br>
 
-cd && sudo apt install nginx <br>
+${Number($("#set-nginxmode").val()) == 0 ? "" : nginx_start()}
+`;
+
+let nginx_start = ()=>`cd && sudo apt install nginx <br>
 mkdir -p /etc/nginx/sites-available && mkdir -p /etc/nginx/sites-enabled <br>
 sudo nano /etc/nginx/sites-available/default <br> сохраняем нажав ctrl+O затем enter <br>
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/<br>
 sudo nano /etc/nginx/nginx.conf <br> в конец блока http дописываем include /etc/nginx/sites-enabled/default;<br>
 если нету, записываем server_names_hash_bucket_size 128;<br>
 sudo nginx -t<br>
-sudo sv restart nginx<br><br>
-`;
+sudo sv restart nginx<br><br>`;

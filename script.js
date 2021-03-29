@@ -42,6 +42,7 @@ function setValues() {
   $("#set-gituser").val(data.gituser);
   $("#set-gitapp").val(data.gitapp);
   $("#set-app").val(data.app);
+  $("#set-nginxmode").val(data.nginx);
 }
 
 function setDataChange(e) {

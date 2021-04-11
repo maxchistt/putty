@@ -30,7 +30,6 @@ var appinstall = () => `<h5>Развертывание сервера на Expre
 'env'- переменные окуружения<br>
 значение PORT указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
 вместо index.js свой исполняемый файл<br><br>
-<code>
 <pre><code>
 module.exports = {
   apps : [
@@ -51,7 +50,7 @@ module.exports = {
   ],
 };
 </code></pre>
-</code><br>
+<br>
 </span>
 <code>cd && pm2 restart ecosystem.config.js </code><br>
 <code>pm2 save </code><br>
@@ -66,7 +65,6 @@ module.exports = {
 <code>sudo nano /home/std/ecosystem.config.js</code> <br><br>
 <span>
 значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br><br>
-<code>
 <pre><code>
 module.exports = {
   apps : [
@@ -87,7 +85,6 @@ module.exports = {
   ],
 };
 </code></pre>
-</code>
 <br>
 </span>
 
@@ -124,23 +121,22 @@ sudo nano /etc/nginx/sites-available/default <br><br>
 <span>
 тут важно исправить std-1033 на номер для своего сервера<br>
 в proxy_pass указываем порт, указанный в предыдущем файле<br><br>
-<code>
-...<br>
-server {<br>
-  <span>
-  listen 80;<br>
-  server_name ${data.app}.std-1033.ist.mospolytech.ru;<br>
-  <br>
-  location / {<br><span>
-    proxy_pass http://std-1033.ist.mospolytech.ru:3000;<br>
-    proxy_set_header Host $host;<br>
-    proxy_set_header X-Real-IP $remote_addr;<br>
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>
-    proxy_set_header X-Forwarded-Proto $scheme;<br></span>
-  }<br>
-  </span>
-}<br>
-...<br></code><br>
+<code><pre>
+...
+server {
+  listen 80;
+  server_name ${data.app}.std-1033.ist.mospolytech.ru;
+  location / {
+    proxy_pass http://std-1033.ist.mospolytech.ru:3000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}
+...
+</code></pre>
+<br>
 </span>
 sudo sv restart nginx <br><br>
 приложение будет доступно по ссылке ${data.app}.std-1033.ist.mospolytech.ru<br><br>

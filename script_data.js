@@ -98,12 +98,20 @@ pm2 list
 
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 
-<p class="font-weight-bold">Команда для обновления с гитхаба</p>
+<p class="font-weight-bold">Для обновления с гитхаба</p>
+<p>Подготовка:</p>
+cat>>update.sh<br>
+Далее вводим в файл
+<span>
 для node.js<br>
-cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js<br>
+cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js && cd<br>
 для react<br>
-cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js<br>
+cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js && cd<br>
+<span>
+нажимаем Enter, затем Ctrl+C<br>
 <br>
+<p>Команда для обновления:</p>
+./update-${data.gitapp}.sh
 `;
 
 let nginx_set_server = () => `

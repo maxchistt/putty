@@ -17,15 +17,15 @@ function generate() {
 var appinstall = () => `<h5>Развертывание сервера на Express с загрузкой с github</h5>
 <br>
 на сервере не должно быть непустой папки и существующего домена с таким названием<br><br>
-cd && mkdir -p /home/std/${data.gitapp} <br>
-cd && git clone git@github.com:${data.gituser}/${data.gitapp}.git && cd <br>
+<code>cd && mkdir -p /home/std/${data.gitapp} </code><br>
+<code>cd && git clone git@github.com:${data.gituser}/${data.gitapp}.git && cd </code><br>
 нужно обратить внимание, успешно ли скопировались данные с гита<br>
-cd && cd ${data.gitapp} && npm install && cd <br>
+<code>cd && cd ${data.gitapp} && npm install && cd <br></code>
 
 <br>
 <p class="font-weight-bold">На случай если у нас node.js</p>
 редактируем файлы конфигурации <br>
-sudo nano /home/std/ecosystem.config.js <br><br>
+<code>sudo nano /home/std/ecosystem.config.js</code> <br><br>
 <span>
 'env'- переменные окуружения<br>
 значение PORT указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
@@ -52,18 +52,18 @@ module.exports = {<br>
   </span>
 };<br></code><br>
 </span>
-cd && pm2 restart ecosystem.config.js <br>
-pm2 save <br>
+<code>cd && pm2 restart ecosystem.config.js </code><br>
+<code>pm2 save </code><br>
 <br><br>
-pm2 list
+<code>pm2 list</code>
 <br><br>
 
 <br>
 <p class="font-weight-bold">На случай если у нас только React</p>
 
-cd && cd ${data.gitapp} && npm run build
+<code>cd && cd ${data.gitapp} && npm run build</code>
 редактируем файлы конфигурации <br>
-sudo nano /home/std/ecosystem.config.js <br><br>
+<code>sudo nano /home/std/ecosystem.config.js</code> <br><br>
 <span>
 значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br><br>
 <code>
@@ -88,30 +88,30 @@ module.exports = {<br><span>
   };<br></code><br>
   </span>
 
-cd && pm2 restart ecosystem.config.js <br>
-pm2 save <br>
+<code>cd && pm2 restart ecosystem.config.js</code> <br>
+<code>pm2 save </code><br>
 <br><br>
-pm2 list
+<code>pm2 list</code>
 <br><br>
 
 <p class="font-weight-bold">Далее</p>
 
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 
-<p class="font-weight-bold">Для обновления с гитхаба</p>
-<p>Подготовка:</p>
-cat>>update.sh<br>
+<p class="font-weight-bold">Для обновления с гитхаба - подготовка</p>
+<code>cat>>update.sh</code><br>
 Далее вводим в файл
 <span>
 для node.js<br>
-cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js && cd<br>
+<code>cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js && cd</code><br>
 для react<br>
-cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js && cd<br>
+<code>cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js && cd</code><br>
 </span>
 нажимаем Enter, затем Ctrl+C<br>
 <br>
-<p>Команда для обновления:</p>
-./update-${data.gitapp}.sh
+<p class="font-weight-bold">Команда для обновления:</p>
+<code>./update-${data.gitapp}.sh</code>
+<br>
 `;
 
 let nginx_set_server = () => `
@@ -157,6 +157,7 @@ let fit_set_server = () => `
 var firstinstall = () => `
 <h5>Подготовка сервера к запуску приложений на node.js</h5>
 <br>
+<code>
 cd && sudo apt update -y && sudo apt upgrade -y <br>
 sudo apt install <br>
 sudo apt install nano <br>
@@ -167,21 +168,24 @@ sudo apt install git <br><br>
 cd && sudo npm install serve@latest -g <br>
 cd && sudo npm install pm2@latest -g <br>
 
-pm2 startup systemd <br>нужно выполнить строку из ответа на последнюю команду:<br>
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u std --hp /home/std <br>
+pm2 startup systemd </code><br>
+нужно выполнить строку из ответа на последнюю команду:<br>
+<code>sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u std --hp /home/std <br>
 pm2 save <br>
-cd && pm2 ecosystem <br><br>
+cd && pm2 ecosystem </code><br><br>
 
 ${Number($("#set-nginxmode").val()) == 0 ? "" : nginx_start()}
 `;
 
 let nginx_start = () => `
+<code>
 cd && sudo apt install nginx <br>
 mkdir -p /etc/nginx/sites-available && mkdir -p /etc/nginx/sites-enabled <br>
 sudo nano /etc/nginx/sites-available/default <br> сохраняем нажав ctrl+O затем enter <br>
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/<br>
-sudo nano /etc/nginx/nginx.conf <br> в конец блока http дописываем include /etc/nginx/sites-enabled/default;<br>
-если нету, записываем server_names_hash_bucket_size 128;<br>
-sudo nginx -t<br>
-sudo sv restart nginx<br><br>
+sudo nano /etc/nginx/nginx.conf </code><br> 
+в конец блока http дописываем <code>include /etc/nginx/sites-enabled/default;</code><br>
+если нету, записываем <code>server_names_hash_bucket_size 128;</code><br>
+<code>sudo nginx -t<br>
+sudo sv restart nginx</code><br><br>
 `;

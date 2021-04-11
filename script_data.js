@@ -181,8 +181,8 @@ let nginx_start = () => `
 cd && sudo apt install nginx <br>
 mkdir -p /etc/nginx/sites-available && mkdir -p /etc/nginx/sites-enabled <br>
 sudo nano /etc/nginx/sites-available/default </code><br>
-<code>сохраняем нажав ctrl+O затем enter</code> <br>
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/<br>
+сохраняем нажав ctrl+O затем enter<br>
+<code>sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/<br>
 sudo nano /etc/nginx/nginx.conf </code><br> 
 в конец блока http дописываем <code>include /etc/nginx/sites-enabled/default;</code><br>
 если нету, записываем <code>server_names_hash_bucket_size 128;</code><br>

@@ -107,6 +107,7 @@ ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()
 <code>cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js && cd</code><br>
 </span>
 нажимаем Enter, затем Ctrl+C<br>
+<code>chmod +x update-${data.gitapp}.sh</code><br>
 <br>
 <p class="font-weight-bold">Команда для обновления:</p>
 <code>./update-${data.gitapp}.sh</code>

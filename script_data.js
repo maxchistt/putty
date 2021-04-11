@@ -107,7 +107,7 @@ cat>>update.sh<br>
 cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js && cd<br>
 для react<br>
 cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js && cd<br>
-<span>
+</span>
 нажимаем Enter, затем Ctrl+C<br>
 <br>
 <p>Команда для обновления:</p>

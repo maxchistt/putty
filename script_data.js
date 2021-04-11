@@ -98,7 +98,7 @@ module.exports = {<br><span>
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 
 <p class="font-weight-bold">Для обновления с гитхаба - подготовка</p>
-<code>cat>>update.sh</code><br>
+<code>cat>>update-${data.gitapp}.sh</code><br>
 Далее вводим в файл
 <span>
 для node.js<br>

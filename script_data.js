@@ -100,9 +100,9 @@ ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()
 
 команда для обновления с гитхаба<br>
 для node.js<br>
-cd && cd ${data.gitapp} && git pull && npm install && cd && pm2 restart ecosystem.config.js<br>
+cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js<br>
 для react<br>
-cd && cd ${data.gitapp} && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js<br>
+cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js<br>
 <br>
 `;
 

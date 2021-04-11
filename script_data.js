@@ -54,11 +54,10 @@ module.exports = {<br>
 </span>
 <code>cd && pm2 restart ecosystem.config.js </code><br>
 <code>pm2 save </code><br>
-<br><br>
+<br>
 <code>pm2 list</code>
 <br><br>
 
-<br>
 <p class="font-weight-bold">На случай если у нас только React</p>
 
 <code>cd && cd ${data.gitapp} && npm run build</code>
@@ -90,7 +89,7 @@ module.exports = {<br><span>
 
 <code>cd && pm2 restart ecosystem.config.js</code> <br>
 <code>pm2 save </code><br>
-<br><br>
+<br>
 <code>pm2 list</code>
 <br><br>
 
@@ -111,7 +110,7 @@ ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()
 <br>
 <p class="font-weight-bold">Команда для обновления:</p>
 <code>./update-${data.gitapp}.sh</code>
-<br>
+<br><br>
 `;
 
 let nginx_set_server = () => `
@@ -181,7 +180,8 @@ let nginx_start = () => `
 <code>
 cd && sudo apt install nginx <br>
 mkdir -p /etc/nginx/sites-available && mkdir -p /etc/nginx/sites-enabled <br>
-sudo nano /etc/nginx/sites-available/default <br> сохраняем нажав ctrl+O затем enter <br>
+sudo nano /etc/nginx/sites-available/default </code><br>
+<code>сохраняем нажав ctrl+O затем enter</code> <br>
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/<br>
 sudo nano /etc/nginx/nginx.conf </code><br> 
 в конец блока http дописываем <code>include /etc/nginx/sites-enabled/default;</code><br>

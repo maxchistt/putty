@@ -30,6 +30,7 @@ sudo nano /home/std/ecosystem.config.js <br><br>
 'env'- переменные окуружения<br>
 значение PORT указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
 вместо index.js свой исполняемый файл<br><br>
+<code>
 module.exports = {<br>
   <span>
   apps : [<br><span>
@@ -49,7 +50,7 @@ module.exports = {<br>
     /*...*/<br></span>
   ],<br>
   </span>
-};<br><br>
+};<br></code><br>
 </span>
 cd && pm2 restart ecosystem.config.js <br>
 pm2 save <br>
@@ -65,7 +66,7 @@ cd && cd ${data.gitapp} && npm run build
 sudo nano /home/std/ecosystem.config.js <br><br>
 <span>
 значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br><br>
-
+<code>
 module.exports = {<br><span>
   apps : [<br><span>
     /*...*/<br>
@@ -84,7 +85,7 @@ module.exports = {<br><span>
       /*...*/<br></span>
     ],<br>
     </span>
-  };<br><br>
+  };<br></code><br>
   </span>
 
 cd && pm2 restart ecosystem.config.js <br>
@@ -111,6 +112,7 @@ sudo nano /etc/nginx/sites-available/default <br><br>
 <span>
 тут важно исправить std-1033 на номер для своего сервера<br>
 в proxy_pass указываем порт, указанный в предыдущем файле<br><br>
+<code>
 ...<br>
 server {<br>
   <span>
@@ -126,7 +128,7 @@ server {<br>
   }<br>
   </span>
 }<br>
-...<br><br>
+...<br></code><br>
 </span>
 sudo sv restart nginx <br><br>
 приложение будет доступно по ссылке ${data.app}.std-1033.ist.mospolytech.ru<br><br>

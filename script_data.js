@@ -98,7 +98,7 @@ pm2 list
 
 ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()}
 
-<p class="font-weight-bold">Команда для обновления с гитхаба</p><br>
+<p class="font-weight-bold">Команда для обновления с гитхаба</p>
 для node.js<br>
 cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && cd && pm2 restart ecosystem.config.js<br>
 для react<br>
@@ -107,7 +107,7 @@ cd && cd ${data.gitapp} && git reset --hard HEAD && git pull && npm install && n
 `;
 
 let nginx_set_server = () => `
-<br>
+
 sudo nano /etc/nginx/sites-available/default <br><br>
 <span>
 тут важно исправить std-1033 на номер для своего сервера<br>
@@ -135,7 +135,7 @@ sudo sv restart nginx <br><br>
 `;
 
 let fit_set_server = () => `
-<br>
+
 заходим на https://fit.mospolytech.ru/systems/servers <br>
 <span>
 в качестве домена указываем ${data.app} ... <br>

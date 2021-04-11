@@ -31,26 +31,27 @@ var appinstall = () => `<h5>Развертывание сервера на Expre
 значение PORT указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
 вместо index.js свой исполняемый файл<br><br>
 <code>
-module.exports = {<br>
-  <span>
-  apps : [<br><span>
-    /*...*/<br>
-    {<br><span>
-      'name':'${data.app}',<br>
-      'script': './${data.gitapp}/index.js',<br>
-      'watch': 'true',<br>
-      'ignore-watch':"./${data.gitapp}/node_modules",<br>
-      'ignore-watch':"node_modules",<br>
-      'max-memory-restart':'150MB',<br>
-      'env':{<br><span>
-        'PORT':'3000',<br>
-        'NODE_ENV':'env',<br></span>
-      }<br></span>
-    }<br>
-    /*...*/<br></span>
-  ],<br>
-  </span>
-};<br></code><br>
+<pre><code>
+module.exports = {
+  apps : [
+    /*...*/
+    {
+      'name':'${data.app}',
+      'script': './${data.gitapp}/index.js',
+      'watch': 'true',
+      'ignore-watch':"./${data.gitapp}/node_modules",
+      'ignore-watch':"node_modules",
+      'max-memory-restart':'150MB',
+      'env':{
+        'PORT':'3000',
+        'NODE_ENV':'env',
+      }
+    }
+    /*...*/
+  ],
+};
+</code></pre>
+</code><br>
 </span>
 <code>cd && pm2 restart ecosystem.config.js </code><br>
 <code>pm2 save </code><br>
@@ -66,26 +67,29 @@ module.exports = {<br>
 <span>
 значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br><br>
 <code>
-module.exports = {<br><span>
-  apps : [<br><span>
-    /*...*/<br>
-    {<br><span>
-      name      : "${data.app}",<br>
-      script    : "npx",<br>
-      interpreter: "none",<br>
-      args: "serve ${data.gitapp}/build -s -p 3000",<br>
-      'watch': './${data.gitapp}/',<br>
-      'ignore-watch': "./${data.gitapp}/node_modules",<br>
-      'max-memory-restart': '150MB',<br>
-      env_production : {<br><span>
-         NODE_ENV: 'production'<br></span>
-        }<br></span>
-      }<br>
-      /*...*/<br></span>
-    ],<br>
-    </span>
-  };<br></code><br>
-  </span>
+<pre><code>
+module.exports = {
+  apps : [
+    /*...*/
+    {
+      name      : "${data.app}",
+      script    : "npx",
+      interpreter: "none",
+      args: "serve ${data.gitapp}/build -s -p 3000",
+      'watch': './${data.gitapp}/',
+      'ignore-watch': "./${data.gitapp}/node_modules",
+      'max-memory-restart': '150MB',
+      env_production : {
+        NODE_ENV: 'production'
+      }
+    }
+    /*...*/
+  ],
+};
+</code></pre>
+</code>
+<br>
+</span>
 
 <code>cd && pm2 restart ecosystem.config.js</code> <br>
 <code>pm2 save </code><br>

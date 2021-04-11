@@ -53,15 +53,42 @@ module.exports = {<br>
 </span>
 cd && pm2 restart ecosystem.config.js <br>
 pm2 save <br>
+<br><br>
+pm2 list
+<br><br>
 
 <br>
 <p class="font-weight-bold">На случай если у нас только React</p>
 
 cd && cd ${data.gitapp} && npm run build
-<br>
-  cd && pm2 serve ${data.gitapp}/build 3000 --name "${data.app}" --spa && cd
-<br>
-pm2 save 
+редактируем файлы конфигурации <br>
+sudo nano /home/std/ecosystem.config.js <br><br>
+<span>
+значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
+
+module.exports = {<br><span>
+  apps : [<br><span>
+    ...<br>
+    {<br><span>
+      name      : "${data.app}",<br>
+      script    : "npx",<br>
+      interpreter: "none",<br>
+      args: "serve ${data.gitapp}/build -s -p 3000",<br>
+      'watch': './${data.gitapp}/',<br>
+      'ignore-watch': "./${data.gitapp}/node_modules",<br>
+      'max-memory-restart': '150MB',<br>
+      env_production : {<br><span>
+         NODE_ENV: 'production'<br></span>
+        }<br></span>
+      }<br>
+      ...<br></span>
+    ],<br>
+    </span>
+  };<br><br>
+  </span>
+
+cd && pm2 restart ecosystem.config.js <br>
+pm2 save <br>
 <br><br>
 pm2 list
 <br><br>
@@ -72,13 +99,13 @@ ${Number($("#set-nginxmode").val()) == 0 ? fit_set_server() : nginx_set_server()
 
 команда для обновления с гитхаба<br>
 для node.js<br>
-cd && cd ${data.gitapp} && git pull && cd<br>
+cd && cd ${data.gitapp} && git pull && npm install && cd && pm2 restart ecosystem.config.js<br>
 для react<br>
-cd && cd ${data.gitapp} && git pull && cd && cd test-react-cards && npm run build && cd && pm2 restart ${data.app}<br>
+cd && cd ${data.gitapp} && git pull && npm install && npm run build && cd && pm2 restart ecosystem.config.js<br>
 <br>
 `;
 
-let nginx_set_server = ()=>`
+let nginx_set_server = () => `
 <br>
 sudo nano /etc/nginx/sites-available/default <br><br>
 <span>
@@ -105,7 +132,7 @@ sudo sv restart nginx <br><br>
 приложение будет доступно по ссылке ${data.app}.std-1033.ist.mospolytech.ru<br><br>
 `;
 
-let fit_set_server = ()=>`
+let fit_set_server = () => `
 <br>
 заходим на https://fit.mospolytech.ru/systems/servers <br>
 <span>
@@ -138,7 +165,7 @@ cd && pm2 ecosystem <br><br>
 ${Number($("#set-nginxmode").val()) == 0 ? "" : nginx_start()}
 `;
 
-let nginx_start = ()=>`
+let nginx_start = () => `
 cd && sudo apt install nginx <br>
 mkdir -p /etc/nginx/sites-available && mkdir -p /etc/nginx/sites-enabled <br>
 sudo nano /etc/nginx/sites-available/default <br> сохраняем нажав ctrl+O затем enter <br>

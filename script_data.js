@@ -33,7 +33,7 @@ sudo nano /home/std/ecosystem.config.js <br><br>
 module.exports = {<br>
   <span>
   apps : [<br><span>
-    ...<br>
+    /*...*/<br>
     {<br><span>
       'name':'${data.app}',<br>
       'script': './${data.gitapp}/index.js',<br>
@@ -46,7 +46,7 @@ module.exports = {<br>
         'NODE_ENV':'env',<br></span>
       }<br></span>
     }<br>
-    ...<br></span>
+    /*...*/<br></span>
   ],<br>
   </span>
 };<br><br>
@@ -64,11 +64,11 @@ cd && cd ${data.gitapp} && npm run build
 редактируем файлы конфигурации <br>
 sudo nano /home/std/ecosystem.config.js <br><br>
 <span>
-значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br>
+значение -p указываем 3000, если приложение одно, и 3001 и т.д., если приложений уже несколько<br><br>
 
 module.exports = {<br><span>
   apps : [<br><span>
-    ...<br>
+    /*...*/<br>
     {<br><span>
       name      : "${data.app}",<br>
       script    : "npx",<br>
@@ -81,7 +81,7 @@ module.exports = {<br><span>
          NODE_ENV: 'production'<br></span>
         }<br></span>
       }<br>
-      ...<br></span>
+      /*...*/<br></span>
     ],<br>
     </span>
   };<br><br>
